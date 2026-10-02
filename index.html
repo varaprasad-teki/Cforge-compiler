@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>CForge Online — Advanced C Compiler & Debugger</title>
+<style>
+:root{
+ --bg:#080d16;--panel:#0d1421;--panel2:#111b2b;--panel3:#0a111c;--line:#203047;
+ --text:#e7eef9;--muted:#8292aa;--blue:#4f9cff;--green:#35d39b;--yellow:#f6c85f;
+ --red:#ff6b7a;--purple:#a78bfa;--shadow:0 14px 40px #0007
+}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:var(--bg);color:var(--text);font:13px Inter,system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+button,select,textarea,input{font:inherit}.app{height:100vh;display:grid;grid-template-rows:58px 42px 1fr 30px}
+.top{display:flex;align-items:center;padding:0 14px;border-bottom:1px solid var(--line);background:#0a111deF;gap:15px}
+.brand{display:flex;gap:10px;align-items:center;min-width:230px}.mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#34d399,#3b82f6);font-weight:900;color:#06101b}.brand b{font-size:15px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.2px;margin-top:2px}
+.topcenter{display:flex;align-items:center;gap:7px}.pill{background:#111d2e;border:1px solid var(--line);border-radius:7px;padding:6px 9px;color:#b9c8dc}.pill strong{color:#fff}
+.topactions{margin-left:auto;display:flex;gap:7px}.btn{border:1px solid var(--line);background:#111d2d;color:var(--text);border-radius:7px;padding:7px 11px;cursor:pointer}.btn:hover{border-color:#416083;background:#17263b}.btn.primary{background:#1976ed;border-color:#1976ed;color:white;font-weight:700}.btn.green{background:#087b5c;border-color:#0b9b76;color:#fff}.btn.icon{width:34px;padding:7px 0;text-align:center}
+.toolbar{display:flex;align-items:center;gap:7px;padding:0 10px;background:#0b1421;border-bottom:1px solid var(--line)}.toolbar .sep{height:20px;width:1px;background:var(--line);margin:0 4px}.select{background:#101c2d;color:#dce7f7;border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.main{min-height:0;display:grid;grid-template-columns:225px minmax(420px,1fr) 365px;background:#050a12;gap:1px}.side,.editorarea,.right{min-width:0;min-height:0;background:var(--panel)}
+.side{overflow:auto;padding:12px}.sideTitle{font-size:9px;color:#61728a;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;margin:5px 7px 8px}.project{padding:9px;background:#101b2a;border:1px solid var(--line);border-radius:7px;margin-bottom:14px}.tree{display:flex;gap:8px;align-items:center;padding:8px;border-radius:6px;color:#b6c4d7}.tree.active,.tree:hover{background:#16253a;color:#fff}.indent{padding-left:25px}.greenDot{color:var(--green)}.file{color:#70a7ff}.sideCard{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:15px;color:var(--muted);line-height:1.55}.sideCard b{color:#dce7f7}
+.editorarea{display:grid;grid-template-rows:39px 1fr 220px;overflow:hidden}.tabbar{display:flex;align-items:center;border-bottom:1px solid var(--line);background:#0d1725}.tab{height:100%;display:flex;align-items:center;gap:8px;padding:0 14px;border-right:1px solid var(--line);background:#111c2c}.tab .x{color:#62758f;margin-left:8px}.editor{min-height:0;display:grid;grid-template-columns:50px 1fr;background:#08101b;overflow:hidden}.gutter{padding:14px 8px 30px 0;text-align:right;color:#40526b;font:12px/1.7 ui-monospace,monospace;overflow:hidden;user-select:none}.code{min-width:0;min-height:0;position:relative;overflow:hidden}.code textarea{position:absolute;inset:0;width:100%;height:100%;border:0;outline:0;resize:none;background:transparent;color:#d9e7fa;padding:14px 18px 40px 8px;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;tab-size:4;white-space:pre;overflow:auto;caret-color:#66b1ff}
+.console{border-top:1px solid var(--line);display:grid;grid-template-rows:40px 1fr;min-height:0;background:#070e18}.consoleTabs{display:flex;align-items:center;gap:2px;padding:0 8px;border-bottom:1px solid var(--line)}.ctab{padding:9px 12px;color:#8091a9;cursor:pointer}.ctab.active{color:#fff;border-bottom:2px solid var(--blue)}.consoleBody{overflow:auto;padding:12px 14px;font:12px/1.55 ui-monospace,monospace;white-space:pre-wrap}.output{color:#b9c9dd}.success{color:var(--green)}.error{color:var(--red)}.warn{color:var(--yellow)}
+.right{display:grid;grid-template-rows:43px 1fr;overflow:hidden}.rightHead{display:flex;align-items:center;justify-content:space-between;padding:0 13px;border-bottom:1px solid var(--line)}.rightBody{overflow:auto;padding:12px}.card{border:1px solid var(--line);border-radius:9px;background:#0d1725;margin-bottom:10px;overflow:hidden}.cardHead{padding:10px 12px;border-bottom:1px solid var(--line);font-weight:750}.cardBody{padding:11px}.field{margin-bottom:10px}.field label{display:block;color:#8394aa;font-size:10px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}.field textarea,.field input{width:100%;background:#07101b;border:1px solid var(--line);border-radius:6px;color:#dce7f7;padding:8px;outline:0}.field textarea{height:100px;resize:vertical;font:12px ui-monospace,monospace}.runinfo{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{background:#09121e;border:1px solid var(--line);border-radius:7px;padding:9px}.metric b{display:block;font-size:15px}.metric span{color:var(--muted);font-size:9px}.debug{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.debug .btn{padding:7px 0}.breakpoints{font:11px ui-monospace,monospace;color:#9fb1c9;line-height:1.7}.status{display:flex;align-items:center;gap:16px;padding:0 12px;background:#06101a;border-top:1px solid var(--line);color:#72849b;font-size:10px}.live{color:var(--green)}
+.hidden{display:none!important}
+@media(max-width:1050px){.main{grid-template-columns:190px minmax(400px,1fr)}.right{display:none}}
+@media(max-width:700px){body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-rows:58px 44px 1fr 30px}.main{grid-template-columns:1fr}.side{display:none}.editorarea{height:calc(100vh - 132px);grid-template-rows:39px 1fr 210px}.topcenter{display:none}.brand{min-width:auto}.brand small{display:none}.topactions .txt{display:none}.topactions{gap:4px}.toolbar{overflow:auto;white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand"><div class="mark">&lt;/&gt;</div><div><b>CForge Online</b><small>ADVANCED C COMPILER & DEBUGGER</small></div></div>
+ <div class="topcenter"><span class="pill">● <strong id="buildState">Ready</strong></span><span class="pill">C <strong id="stdLabel">17</strong></span></div>
+ <div class="topactions">
+  <button class="btn" id="new">＋ <span class="txt">New</span></button><button class="btn" id="open">↥ <span class="txt">Open</span></button><button class="btn" id="save">↓ <span class="txt">Save</span></button><button class="btn green" id="run">▶ <span class="txt">Run</span></button>
+ </div>
+</header>
+
+<nav class="toolbar">
+ <button class="btn icon" title="Run">▶</button><button class="btn icon" title="Compile">⚙</button><button class="btn icon" title="Stop">■</button><span class="sep"></span>
+ <select class="select" id="std"><option value="c17">C17</option><option value="c11">C11</option><option value="c99">C99</option><option value="c23">C23</option></select>
+ <select class="select"><option>GCC (GNU)</option><option>Clang</option></select>
+ <select class="select"><option>-O0 Debug</option><option>-O2 Release</option><option>-O3 Performance</option></select>
+ <input id="flags" class="select" style="width:170px" value="-Wall -Wextra" aria-label="compiler flags">
+ <span class="sep"></span><button class="btn" id="format">Format</button><button class="btn" id="share">Share</button>
+</nav>
+
+<main class="main">
+<aside class="side">
+ <div class="sideTitle">Project</div><div class="project"><b>📦 cforge-project</b><br><span style="color:var(--muted);font-size:10px">C17 • local workspace</span></div>
+ <div class="sideTitle">Files</div>
+ <div class="tree active">▾ 📁 src</div><div class="tree indent">C <span class="file">main.c</span></div>
+ <div class="tree indent">H <span class="file">config.h</span></div><div class="tree">▾ 📁 include</div><div class="tree indent">H <span class="file">stdio.h</span></div>
+ <div class="tree">▤ README.md</div>
+ <div class="sideTitle" style="margin-top:20px">Debug</div>
+ <div class="tree">● Breakpoints <span id="bpCount" style="margin-left:auto">0</span></div>
+ <div class="tree">◇ Watch</div><div class="tree">▣ Call Stack</div>
+ <div class="sideCard"><b>Execution</b><br>Frontend is ready for a real GCC/Clang WebAssembly or sandbox API. This demo includes compiler-style diagnostics and output simulation.</div>
+</aside>
+
+<section class="editorarea">
+ <div class="tabbar"><div class="tab">● <b>main.c</b><span class="x">×</span></div></div>
+ <div class="editor"><div class="gutter" id="gutter">1</div><div class="code"><textarea id="code" spellcheck="false">#include &lt;stdio.h&gt;
+
+int main(void) {
+    int a = 10;
+    int b = 20;
+    int sum = a + b;
+
+    printf("CForge Online\n");
+    printf("Sum = %d\n", sum);
+
+    return 0;
+}</textarea></div></div>
+ <div class="console">
+  <div class="consoleTabs"><span class="ctab active" data-tab="output">Output</span><span class="ctab" data-tab="errors">Compiler</span><span class="ctab" data-tab="input">stdin</span><span class="ctab" data-tab="debug">Debugger</span><span style="margin-left:auto;color:#657890;font-size:10px" id="time">0 ms</span></div>
+  <div class="consoleBody" id="console"></div>
+ </div>
+</section>
+
+<aside class="right">
+ <div class="rightHead"><b>Run Configuration</b><span class="live">● Online</span></div>
+ <div class="rightBody">
+  <div class="card"><div class="cardHead">Standard input (stdin)</div><div class="cardBody"><div class="field"><textarea id="stdin" placeholder="Type program input here..."></textarea></div></div></div>
+  <div class="card"><div class="cardHead">Compiler</div><div class="cardBody">
+   <div class="field"><label>Compiler</label><select class="select"><option>GCC 13.x</option><option>Clang 18.x</option></select></div>
+   <div class="field"><label>Language</label><select class="select" id="std2"><option>C17</option><option>C11</option><option>C23</option></select></div>
+   <div class="field"><label>Arguments</label><input class="select" value=""></div>
+  </div></div>
+  <div class="card"><div class="cardHead">Execution</div><div class="cardBody"><div class="runinfo"><div class="metric"><b id="mTime">—</b><span>execution</span></div><div class="metric"><b id="mExit">—</b><span>exit code</span></div></div></div></div>
+  <div class="card"><div class="cardHead">Debugger controls</div><div class="cardBody"><div class="debug"><button class="btn">⏮</button><button class="btn">▶</button><button class="btn">↷</button><button class="btn">↪</button></div><div class="breakpoints" style="margin-top:10px">● main.c:3 — breakpoint ready<br>◇ Variables — a, b, sum<br>▣ Stack — main()</div></div></div>
+ </div>
+</aside>
+</main>
+<footer class="status"><span class="live">● Connected</span><span>main.c</span><span>C17</span><span>UTF-8</span><span>Spaces 4</span><span style="margin-left:auto">CForge Online v2.0</span></footer>
+</div>
+
+<script>
+const code=document.getElementById('code'), gutter=document.getElementById('gutter'), consoleBox=document.getElementById('console');
+const state=document.getElementById('buildState'), timeBox=document.getElementById('time'), mTime=document.getElementById('mTime'), mExit=document.getElementById('mExit');
+function lines(){gutter.innerHTML=Array.from({length:code.value.split('\\n').length},(_,i)=>i+1).join('<br>')}
+function escapeHtml(x){return x.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function diagnostics(src){
+ let d=[];
+ if(!/\bint\s+main\s*\(/.test(src)) d.push(['error','main.c: error: main function not found']);
+ if(/printf\s*\(/.test(src)&&!/#include\s*<stdio\.h>/.test(src)) d.push(['warning','main.c: warning: printf used without <stdio.h>']);
+ if((src.match(/{/g)||[]).length!==(src.match(/}/g)||[]).length)d.push(['error','main.c: error: unmatched braces']);
+ if(!/return\s+0\s*;/.test(src))d.push(['warning','main.c: warning: main does not explicitly return 0']);
+ return d;
+}
+function simulate(src){
+ const d=diagnostics(src); if(d.some(x=>x[0]==='error')) return {d,out:'',exit:1};
+ let out=[],m,rx=/printf\s*\(\s*"((?:\\.|[^"\\])*)"(?:\s*,\s*([^)]*))?\s*\)\s*;/g;
+ while((m=rx.exec(src))){
+   let t=m[1].replace(/\\n/g,'\n').replace(/\\t/g,'\t').replace(/\\"/g,'"').replace(/\\\\/g,'\\');
+   if(m[2]) {
+     const vars={}; let v;
+     const decl=/\b(?:int|long|float|double|char)\s+(\w+)\s*=\s*([^;]+);/g;
+     while((v=decl.exec(src))) vars[v[1]=v[1]]=v[2].trim();
+     const args=m[2].split(',').map(x=>x.trim());
+     args.forEach(a=>{const key=a.replace(/^\&/,'');if(vars[key]!==undefined)t=t.replace(/%[dfcilsu]/,vars[key])});
+   }
+   out.push(t);
+ }
+ if(!out.length)out.push('(Program compiled successfully; no printf output captured.)');
+ return {d,out:out.join('\n'),exit:0};
+}
+function run(){
+ const t0=performance.now(); state.textContent='Building…'; consoleBox.innerHTML='<span class="warn">⟳ GCC-style compile started…</span>';
+ setTimeout(()=>{
+  const r=simulate(code.value), ms=Math.max(1,Math.round(performance.now()-t0));
+  timeBox.textContent=ms+' ms';mTime.textContent=ms+' ms';mExit.textContent=r.exit;
+  const errs=r.d.map(x=>(x[0]==='error'?'<span class="error">✕ '+escapeHtml(x[1])+'</span>':'<span class="warn">⚠ '+escapeHtml(x[1])+'</span>')).join('\n');
+  if(r.exit===0){state.textContent='Success';consoleBox.innerHTML='<span class="success">BUILD SUCCESSFUL</span>\n\n<span class="output">'+escapeHtml(r.out)+'</span>\n\n<span class="success">Process exited with code 0.</span>'+(errs?'\n\n'+errs:'')}
+  else {state.textContent='Failed';consoleBox.innerHTML='<span class="error">BUILD FAILED</span>\n\n'+errs}
+  document.querySelector('.ctab.active').click();
+ },280);
+}
+document.getElementById('run').onclick=run;
+document.querySelector('.toolbar .btn').onclick=run;
+code.addEventListener('input',lines);code.addEventListener('scroll',()=>{gutter.scrollTop=code.scrollTop});lines();
+code.addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter'){e.preventDefault();run()}if(e.key==='Tab'){e.preventDefault();code.setRangeText('    ',code.selectionStart,code.selectionEnd,'end');lines()}});
+document.getElementById('new').onclick=()=>{if(confirm('Create a new C program?')){code.value='#include <stdio.h>\\n\\nint main(void) {\\n    printf("Hello, World!\\\\n");\\n    return 0;\\n}\\n';lines()}};
+document.getElementById('save').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([code.value],{type:'text/plain'}));a.download='main.c';a.click()};
+document.getElementById('open').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.c,.h,.txt';i.onchange=()=>{let f=i.files[0];if(f){let r=new FileReader();r.onload=()=>{code.value=r.result;lines()};r.readAsText(f)}};i.click()};
+document.getElementById('std').onchange=e=>document.getElementById('stdLabel').textContent=e.target.value.slice(1);
+document.querySelectorAll('.ctab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('active'));t.classList.add('active')});
+document.getElementById('format').onclick=()=>{code.value=code.value.split('\\n').map(x=>x.replace(/\s+$/,'')).join('\\n');lines()};
+document.getElementById('share').onclick=async()=>{try{await navigator.clipboard.writeText(code.value);alert('C code copied to clipboard.')}catch(e){alert('Copy is not available in this browser.')}};
+consoleBox.innerHTML='<span class="success">CForge Online ready.</span>\nPress ▶ Run or Ctrl+Enter to compile and run the example.';
+</script>
+</body>
+</html>
